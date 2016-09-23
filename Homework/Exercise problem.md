@@ -15,3 +15,11 @@ e.g  input: function (path=/, type=xml )
      
 2.jira API参考文档:
 https://developer.atlassian.com/jiradev/jira-apis/jira-rest-apis/jira-rest-api-tutorials/jira-rest-api-example-query-issues
+
+### 09/23
+1. 任一个英文的纯文本文件，统计其中的单词出现的个数。
+附加功能(1)排除拼写错误的单词
+       (2)排除特殊字符
+       
+2. 从网上获取成都高新区2016房价,绘制成线性图表。
+TIPs: 寻找第三方package
