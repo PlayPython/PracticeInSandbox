@@ -32,9 +32,9 @@ class How_Many_Files(object):
 
     def run(self):
         path = '.';
-        print self.how_many_files(path, 'py')
-        print self.how_many_files(path, 'txt')
-        print self.how_many_files(path, 'word')
+        print(self.how_many_files(path, 'py'))
+        print(self.how_many_files(path, 'txt'))
+        print(self.how_many_files(path, 'word'))
 
 
 if __name__ == '__main__':
