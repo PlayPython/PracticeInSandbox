@@ -2,6 +2,7 @@ import re
 
 
 class WordsFrequency(object):
+
     @staticmethod
     def word_frequency_method(file):
         f = open(file, 'r')
