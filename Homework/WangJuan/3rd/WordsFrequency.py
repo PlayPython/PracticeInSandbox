@@ -1,7 +1,9 @@
 import re
 
-class WordFrequency(object):
-    def word_frequency_method(self, file):
+
+class WordsFrequency(object):
+    @staticmethod
+    def word_frequency_method(file):
         f = open(file, 'r')
         file_content_string = ''
         r = '[’!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]+'
@@ -25,12 +27,11 @@ class WordFrequency(object):
                 words_list.remove(word1)
         print(dict)
 
-
     def run(self):
         file = 'test_file.txt'
         self.word_frequency_method(file)
 
 
 if __name__ == '__main__':
-    e = WordFrequency()
+    e = WordsFrequency()
     e.run()
