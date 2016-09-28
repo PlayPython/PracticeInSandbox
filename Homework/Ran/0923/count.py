@@ -12,7 +12,7 @@ else:
     file_content = files.read()
     # question here : pattern is not so accurate :
     #  eg: alre@#ady  alre  ady
-    pattern = r'''[A-Za-z]+'''
+    pattern = r'[A-Za-z]+'
     p = re.compile(pattern)
     print "The file has {0} words".format(len(p.findall(file_content)))
     files.close()
