@@ -18,6 +18,7 @@ class HousePrice(object):
         pass
 
 
+
 if __name__ == '__main__':
     HouseInstance = HousePrice()
     HouseInstance.get_house_price()
