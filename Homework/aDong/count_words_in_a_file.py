@@ -1,5 +1,7 @@
 # count the English words from a file
 import requests
+from multiprocessing.dummy import Pool as ThreadPool
+from collections import Counter
 
 
 class CountWord(object):
@@ -9,32 +11,34 @@ class CountWord(object):
 
     def count_words_sum(self):
         print("start to count the words in file: {0}".format(self.file_name))
-        word_counter = 0
         with open(self.file_name, encoding="utf-8", mode='r') as f:
-            for line in f.readlines():
-                word_counter = word_counter + len(self.check_word_spelling(line.split()))
+            iciba_url_list = list(map(lambda x: self.iciba_url.format(x), f.read().split()))
+        pool = ThreadPool(10)
+        result_list = pool.map(self._call_iciba, iciba_url_list)
+        print(Counter(result_list))
+        counter_obj = Counter(result_list)
 
-        print("{0}Sum number of this file: {1}{2}".format(10 * '=', word_counter, 10 * '='))
-        return word_counter
+        print("{0}Sum number of this file: {1}{2}".format(10 * '=', counter_obj.get(True), 10 * '='))
+        return counter_obj.get(True)
 
     def check_word_spelling(self, line):
         assert isinstance(line, list)
         return list((filter(self._call_iciba, line)))
 
-    def _call_iciba(self, word):
+    def _call_iciba(self, check_spell_url=None):
         headers = {"Content-Encoding": "gzip"}
-        check_work_url = self.iciba_url.format(word)
-        resp = requests.get(url=check_work_url, headers=headers)
+        resp = requests.get(url=check_spell_url, headers=headers)
         if resp.status_code == 200:
-            if '"errmsg":"success"' in resp.text:
-                print(word)
-                return word
+            if '"baesInfo"' in resp.text:
+                return True
             else:
-                print("This is the wrong English word:=={0}==".format(word))
+                print("This is the wrong English word url:=={0}==".format(check_spell_url))
+                return False
         else:
             raise AssertionError("Status code is not 200 from site iciba")
 
 
 if __name__ == '__main__':
-    # o = CountWord()
-    pass
+    o = CountWord("test2.txt")
+    result = o.count_words_sum()
+    print(result)
