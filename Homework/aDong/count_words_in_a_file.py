@@ -3,7 +3,6 @@ import requests
 from multiprocessing.dummy import Pool as ThreadPool
 from collections import Counter
 
-
 class CountWord(object):
     def __init__(self, file_name):
         self.file_name = file_name
@@ -17,13 +16,12 @@ class CountWord(object):
         result_list = pool.map(self._call_iciba, iciba_url_list)
         print(Counter(result_list))
         counter_obj = Counter(result_list)
-
         print("{0}Sum number of this file: {1}{2}".format(10 * '=', counter_obj.get(True), 10 * '='))
         return counter_obj.get(True)
-
-    def check_word_spelling(self, line):
-        assert isinstance(line, list)
-        return list((filter(self._call_iciba, line)))
+        
+    # def check_word_spelling(self, line):
+    #     assert isinstance(line, list)
+    #     return list((filter(self._call_iciba, line)))
 
     def _call_iciba(self, check_spell_url=None):
         headers = {"Content-Encoding": "gzip"}
