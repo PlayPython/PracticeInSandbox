@@ -1,9 +1,8 @@
-from time import sleep
 from requests import get
 from pandas import DataFrame, Series, Index
+from io import StringIO
 import numpy as np
 import matplotlib.pyplot as plt
-import json
 
 
 class PriceTrend(object):
@@ -11,25 +10,33 @@ class PriceTrend(object):
     def get_json_data():
         url = 'http://cd.lianjia.com/fangjia/priceTrend/gaoxin7'
         data = get(url)
-        return data.text
+        return data.json()
 
     @staticmethod
     def data_handler(data):
-        json_obj = json.loads(data)
-        frame = DataFrame(json_obj)
+        frame = DataFrame(data)
         month = frame['currentLevel']['month']
-        # month1 = ('九月', '十月', '十一月', '十二月', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月')
         total = frame['currentLevel']['dealPrice']['total']
         index = Index(np.arange(12))
         val = Series(total, dtype=float, index=index)
-        # plt.xticks(0, month1)
-        plt.plot(val)
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        ax.plot(val)
+        ax.set_xticks(index)
+        ax.set_xticklabels(month)
+        ax.set_title('House Trend in Gaoxin from 2015')
         plt.draw()
-        sleep(2)
+        # use the following to save plotting data to disk
+        # plt.savefig('house_trend.png', dpi=400)
+        # use the following to save plotting data to buffer
+        buffer = StringIO()
+        plt.savefig(buffer)
+        plot_data = buffer.getvalue()
+        return plot_data
 
     def run(self):
         data = self.get_json_data()
-        self.data_handler(data)
+        plot_data = self.data_handler(data)
 
 
 if __name__ == '__main__':
