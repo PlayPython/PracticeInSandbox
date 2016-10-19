@@ -23,3 +23,11 @@ https://developer.atlassian.com/jiradev/jira-apis/jira-rest-apis/jira-rest-api-t
        
 2. 从网上获取成都高新区2016房价,绘制成线性图表。
 TIPs: 寻找第三方package
+
+
+### 10/19
+1. 做一个简单的文本比较工具,输入两个文本, 显示出不同内容的行数
+功能加强(1)做一个简单的UI界面
+       (2)比较不同行数的内容
+       
+2.做一个格式化json或者js的小工具
