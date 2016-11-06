@@ -68,10 +68,10 @@ class CodeComparer(object):
 
 
 if __name__ == '__main__':
-    o = CodeComparer("s.txt", "f.txt")
+    o = CodeComparer("s.json", "f.json")
     # line_numbers = o.compare_two_files_return_different_line_numbers()
     # print(line_numbers)
-    # line_contents = o.compare_two_files_return_different_line_numbers_and_conetent()
-    # print(line_contents)
-    line_index = o.compare_two_files_return_different_line_numbers_and_index()
-    print(line_index)
+    line_contents = o.compare_two_files_return_different_line_numbers_and_conetent()
+    print(line_contents)
+    # line_index = o.compare_two_files_return_different_line_numbers_and_index()
+    # print(line_index)
